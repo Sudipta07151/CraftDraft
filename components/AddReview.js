@@ -57,8 +57,8 @@ const AddReview = (props) => {
                 onChange={handleChange}
                 required
             />
-            <Button className={classes.margin} variant="outlined" type="submit">ADD</Button>
-            <Button className={classes.margin} variant="outlined"
+            <Button className={classes.margin} variant="outlined" type="submit" color="primary">ADD</Button>
+            <Button className={classes.margin} variant="outlined" color='secondary'
                 onClick={resetBox}
             >
                 CANCEL</Button>

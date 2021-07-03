@@ -21,12 +21,13 @@ const useStyles = makeStyles((theme) => ({
     details: {
         display: 'flex',
         flexDirection: 'column',
+        width: '50%'
     },
     content: {
         flex: '1 0 auto',
     },
     cover: {
-        width: '40%',
+        width: '50%',
         height: '100%'
     },
     controls: {
@@ -55,10 +56,10 @@ export default function SingleProduct() {
             <div className={classes.details}>
                 <CardContent className={classes.content}>
                     <Typography component="h5" variant="h5">
-                        Live From Space
+                        Super Mario
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
-                        Mac Miller
+                        Super Mario is a platform game series created by Nintendo based on Mario
                     </Typography>
                 </CardContent>
                 <div className={classes.controls}>

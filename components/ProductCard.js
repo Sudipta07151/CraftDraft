@@ -17,9 +17,12 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 const useStyles = makeStyles({
     root: {
         minWidth: 350,
+        padding: '20px',
+        border: 'solid 3px black',
+        margin: '20px'
     },
     media: {
-        height: 140,
+        height: 200,
     },
 });
 
@@ -28,23 +31,24 @@ export default function ProductCard() {
     console.log(mdiCurrencyInr)
     return (
         <React.Fragment>
-            <Card className={classes.root}>
-                <CardActionArea>
-                    <CardMedia
-                        className={classes.media}
-                        image="https://images.unsplash.com/photo-1602620502036-e52519d58d92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1489&q=80"
-                        title="Contemplative Reptile"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                            SUPER MARIO
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                            across all continents except Antarctica
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
+            <Card className={classes.root} elevation={2}>
+                <Link href={`/product/details/`} passHref>
+                    <CardActionArea >
+                        <CardMedia
+                            className={classes.media}
+                            image="https://images.unsplash.com/photo-1602620502036-e52519d58d92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1489&q=80"
+                            title="Super Mario"
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h5" component="h2">
+                                SUPER MARIO
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                Super Mario is a platform game series created by Nintendo based on Mario. Alternatively called the Super Mario Bros. series or simply the Mario series, it is the central series of the greater Mario franchise. At least one Super Mario game has been released for every major Nintendo video game console.
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Link>
                 <CardActions>
                     <Chip
                         label="100"
