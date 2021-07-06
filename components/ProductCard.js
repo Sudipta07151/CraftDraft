@@ -13,74 +13,104 @@ import Chip from '@material-ui/core/Chip';
 import { mdiCurrencyInr } from '@mdi/js';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles({
     root: {
         minWidth: 350,
+        maxWidth: 700,
         padding: '20px',
-        border: 'solid 3px black',
-        margin: '20px'
+        border: 'solid 3px #ffb300',
+        margin: '20px',
+        maxHeight: '600px',
+        minHeight: '450px',
+        '&:hover': {
+            transform: 'rotate(1deg)',
+            transitionTimingFunction: 'ease'
+        }
     },
     media: {
         height: 200,
     },
 });
 
-export default function ProductCard() {
+export default function ProductCard({ data }) {
+    console.log(data)
     const classes = useStyles();
     console.log(mdiCurrencyInr)
     return (
-        <React.Fragment>
-            <Card className={classes.root} elevation={2}>
-                <Link href={`/product/details/`} passHref>
-                    <CardActionArea >
-                        <CardMedia
-                            className={classes.media}
-                            image="https://images.unsplash.com/photo-1602620502036-e52519d58d92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1489&q=80"
-                            title="Super Mario"
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
-                                SUPER MARIO
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                Super Mario is a platform game series created by Nintendo based on Mario. Alternatively called the Super Mario Bros. series or simply the Mario series, it is the central series of the greater Mario franchise. At least one Super Mario game has been released for every major Nintendo video game console.
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Link>
-                <CardActions>
-                    <Chip
-                        label="100"
-                        variant='outlined'
-                        icon={
-                            <SvgIcon>
-                                <path d={mdiCurrencyInr} />
-                            </SvgIcon>
-                        }
-                        style={{ fontSize: '20px', borderColor: 'white' }}
-                    />
-                    <Chip
-                        icon={<FavoriteBorderIcon />}
-                        label='WISHLIST'
-                        variant='outlined'
-                        clickable={true}
-                        color='primary'
-                    />
-                    <Button variant="outlined" color="primary">
-                        ADD TO CART
-                    </Button>
-                    <Link href={`/product/details/`} passHref>
-                        <Button
-                            variant="outlined"
-                            color="secondary"
-                        >
-                            DETAILS
-                        </Button>
+        <React.Fragment >
+            <Grid item xs={12} md={6} sm={12} lg={4}>
+                <Card className={classes.root} elevation={2} >
+                    <Link href={`/product/${data.key}`} passHref>
+                        <CardActionArea >
+                            <CardMedia
+                                className={classes.media}
+                                image={data.image.formats.thumbnail.url}
+                                title="data.title"
+                            />
+                            <Chip
+                                label={data.price}
+                                component="h2"
+                                variant='outlined'
+                                icon={
+                                    <SvgIcon>
+                                        <path d={mdiCurrencyInr} />
+                                    </SvgIcon>
+                                }
+                                style={{
+                                    borderColor: 'white',
+                                    position: 'absolute',
+                                    top: -20,
+                                    left: -15,
+                                    backgroundColor: 'white',
+                                    border: 'solid 1px #ffb300',
+                                    fontSize: '20px'
+                                }}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    {data.title}
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    {data.description}
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
                     </Link>
+                    <CardActions>
+                        {/* <Chip
+                            label={data.price}
+                            variant='outlined'
+                            icon={
+                                <SvgIcon>
+                                    <path d={mdiCurrencyInr} />
+                                </SvgIcon>
+                            }
+                            style={{ borderColor: 'white' }}
+                        /> */}
+                        <Chip
+                            icon={<FavoriteBorderIcon />}
+                            label='WISHLIST'
+                            variant='outlined'
+                            clickable={true}
+                            color='primary'
+                        />
+                        <Button variant="outlined" color="primary">
+                            ADD TO CART
+                        </Button>
+                        <Link href={`/product/${data.key}`} passHref>
+                            <Button
+                                variant="outlined"
+                                color="secondary"
+                            >
+                                DETAILS
+                            </Button>
+                        </Link>
 
-                </CardActions>
-            </Card>
+                    </CardActions>
+                </Card>
+            </Grid>
         </React.Fragment>
     );
 }

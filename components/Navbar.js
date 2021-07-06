@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 import { makeStyles } from '@material-ui/core/styles';
+import SearchIcon from '@material-ui/icons/Search';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -40,9 +41,16 @@ const Navbar = () => {
                 <Toolbar>
                     <ThemeProvider theme={theme}>
                         <Typography variant="h6" className={classes.title}>
-                            <Link href='/'> CRAFT_DRAFTヅ</Link>
+                            <Link href='/'> CRAFT_DRAFT</Link>
                         </Typography>
                     </ThemeProvider>
+                    <IconButton aria-label="show 17 new notifications" color="inherit">
+                        <Link href={`/product/productlibrary?term=all`} passHref>
+                            <Badge badgeContent={0} color="secondary">
+                                <SearchIcon />
+                            </Badge>
+                        </Link>
+                    </IconButton>
                     <IconButton aria-label="show 17 new notifications" color="inherit">
                         <Badge badgeContent={0} color="secondary">
                             <ShoppingCartIcon />

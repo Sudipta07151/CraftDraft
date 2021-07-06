@@ -1,14 +1,13 @@
 import React from 'react'
 
+import Chip from '@material-ui/core/Chip';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         alignItems: 'center',
         paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
         paddingBottom: theme.spacing(1),
     },
     playIcon: {
@@ -42,46 +42,43 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SingleProduct() {
+export default function SingleProduct({ data }) {
     const classes = useStyles();
     const theme = useTheme();
-
+    console.log(data)
     return (
         <Card className={classes.root}>
             <CardMedia
                 className={classes.cover}
-                image="https://images.unsplash.com/photo-1602620502036-e52519d58d92?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1489&q=80"
-                title="Super Mario"
+                image={data.image.formats.small.url}
+                title={data.title}
             />
             <div className={classes.details}>
                 <CardContent className={classes.content}>
                     <Typography component="h5" variant="h5">
-                        Super Mario
+                        {data.title}
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
-                        Super Mario is a platform game series created by Nintendo based on Mario
+                        {data.description}
                     </Typography>
                 </CardContent>
                 <div className={classes.controls}>
-                    <IconButton aria-label="previous">
-                        {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-                    </IconButton>
-                    <IconButton aria-label="play/pause">
-                        <PlayArrowIcon className={classes.playIcon} />
-                    </IconButton>
-                    <IconButton aria-label="next">
-                        {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-                    </IconButton>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        style={{ marginRight: '20px' }}
+                    >
+                        ADD TO CART
+                    </Button>
+                    <Chip
+                        icon={<FavoriteBorderIcon />}
+                        label='WISHLIST'
+                        variant='outlined'
+                        clickable={true}
+                        color='primary'
+                    />
                 </div>
             </div>
         </Card>
     );
-}
-
-export async function getServerSideProps() {
-    return {
-        props: {
-
-        }
-    }
 }
