@@ -12,6 +12,9 @@ import LoyaltyIcon from '@material-ui/icons/Loyalty';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+import LoginBtn from './LoginBtn';
+import LoginAvatar from './LoginAvatar';
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -61,10 +64,9 @@ const Navbar = () => {
                             <LoyaltyIcon />
                         </Badge>
                     </IconButton>
-                    <Link href={`/signingUp`} passHref>
-                        <Button color="inherit">Login</Button>
-                    </Link>
-                    <Button color="inherit">Admin</Button>
+                    {/* <LoginBtn />
+                     */}
+                    <LoginAvatar />
                 </Toolbar>
             </AppBar>
         </div>
