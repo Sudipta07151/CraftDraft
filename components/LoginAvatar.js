@@ -11,6 +11,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Link from 'next/link'
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,6 +66,9 @@ const LoginAvatar = () => {
             >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <Link href={`/profile/addedproducts`} passHref>
+                    <MenuItem onClick={handleClose}>Added Products</MenuItem>
+                </Link>
             </Menu>
         </React.Fragment>
     );

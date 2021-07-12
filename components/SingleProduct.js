@@ -50,7 +50,8 @@ export default function SingleProduct({ data }) {
         <Card className={classes.root}>
             <CardMedia
                 className={classes.cover}
-                image={data.image.formats.small.url}
+                image={data.image ? data.data.image.formats.small.url : 'https://images.unsplash.com/photo-1585060282215-39a72f82385c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1365&q=80'}
+
                 title={data.title}
             />
             <div className={classes.details}>

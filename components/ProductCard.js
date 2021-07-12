@@ -14,6 +14,7 @@ import { mdiCurrencyInr } from '@mdi/js';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import Grid from '@material-ui/core/Grid';
+import noImage from '../public/no_image.jpg'
 
 const useStyles = makeStyles({
     root: {
@@ -46,7 +47,7 @@ export default function ProductCard({ data }) {
                         <CardActionArea >
                             <CardMedia
                                 className={classes.media}
-                                image={data.image.formats.thumbnail.url}
+                                image={data.image ? data.image.formats.thumbnail.url : 'https://images.unsplash.com/photo-1602984338060-bfddce132ebc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'}
                                 title="data.title"
                             />
                             <Chip
