@@ -1,4 +1,10 @@
 import React from 'react';
+import { API_URL } from 'config';
+import Link from 'next/link';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/dist/client/router';
+
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -17,7 +23,6 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import Grid from '@material-ui/core/Grid';
-
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -75,7 +80,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ProductEditCard({ data }) {
-    console.log(data)
+    var productData = data;
+    console.log(productData);
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -89,10 +95,31 @@ export default function ProductEditCard({ data }) {
     };
 
     const imageModal = () => {
-        const imageUploaded = (data) => {
-            setImage(data);
-            console.log('image I got: ', image);
-            console.log('UPLOADED');
+        const router = useRouter();
+        const path = router.pathname;
+        const imageUploaded = async (data) => {
+            console.log('image I got: ', data);
+            const formData = new FormData()
+            formData.append('files', data);
+            formData.append('ref', 'product-list');
+            // formData.append('uid', productData.key);
+            formData.append('refId', productData.id);
+            formData.append('field', 'image');
+
+            const res = await fetch(`${API_URL}/upload`, {
+                method: 'POST',
+                body: formData
+            })
+            if (res.ok) {
+                toast.success("IMAGE UPLOADED")
+                console.log('UPLOADED');
+                setTimeout(() => {
+                    setOpen(false);
+                }, 2000)
+            }
+            else {
+                toast.error("UPLOAD FAILED")
+            }
         }
         return (
             <div>
@@ -124,6 +151,7 @@ export default function ProductEditCard({ data }) {
 
     return (
         <div>
+            <ToastContainer autoClose={2000} />
             <Card className={classes.root}>
                 <Grid container>
                     <Grid item xs={8} className={classes.upper}>
@@ -161,17 +189,19 @@ export default function ProductEditCard({ data }) {
                                 </Button>
                             </Grid>
                             <Grid item xs={4}>
-                                <Button
-                                    type="button"
-                                    color="secondary"
-                                    variant="contained"
-                                    endIcon={<EditIcon />}
-                                    // onClick={handleOpen}
-                                    className={classes.button}
-                                    style={{ marginTop: '20px' }}
-                                >
-                                    Edit Details
-                                </Button>
+                                <Link href={`/product/editproduct`} passHref>
+                                    <Button
+                                        type="button"
+                                        color="secondary"
+                                        variant="contained"
+                                        endIcon={<EditIcon />}
+                                        // onClick={handleOpen}
+                                        className={classes.button}
+                                        style={{ marginTop: '20px' }}
+                                    >
+                                        Edit Details
+                                    </Button>
+                                </Link>
                             </Grid>
                             <Grid item xs={4}>
                                 <Button

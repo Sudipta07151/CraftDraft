@@ -55,28 +55,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const AddProduct = (props) => {
+const EditProduct = (props) => {
     const [postTitle, setPostTitle] = useState('');
     const [postBody, setPostBody] = useState('');
     const [price, setPrice] = useState(100);
     const [discount, setDiscount] = useState(10);
-    const [image, setImage] = React.useState(null);
     const [tag, setTag] = useState(1);
     const [titleError, setTitleError] = useState(false);
     const [postError, setPostError] = useState(false);
     const [discountError, setDiscountError] = useState(false);
     const classes = useStyles();
     const router = useRouter();
-
-    const [open, setOpen] = React.useState(false);
-
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     const getValPostTitle = (e) => {
         setPostTitle(e.target.value);
@@ -122,23 +111,20 @@ const AddProduct = (props) => {
                 price: price,
             };
             console.log(values);
-            const res = await fetch(`${API_URL}/product-lists`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(values)
-            });
-            if (!res.ok) {
-                toast.error('Something went wrong');
-            }
-            else {
-                const data = await res.json();
-                toast.success("ADDED PRODUCT DATA")
-                setTimeout(() => {
-                    router.push('/');
-                }, 2000)
-            }
+            // const res = await fetch(`${API_URL}/product-lists`, {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify(values)
+            // });
+            // if (!res.ok) {
+            //     toast.error('Something went wrong');
+            // }
+            // else {
+            //     const data = await res.json();
+            //     router.push('/');
+            // }
         }
     }
 
@@ -236,39 +222,9 @@ const AddProduct = (props) => {
         )
     }
 
-    const imageModal = () => {
-        const imageUploaded = (data) => {
-            setImage(data);
-            console.log('image I got: ', image);
-            console.log('UPLOADED');
-        }
-        return (
-            <div>
-                <Modal
-                    aria-labelledby="transition-modal-title"
-                    aria-describedby="transition-modal-description"
-                    className={classes.modal}
-                    open={open}
-                    onClose={handleClose}
-                    closeAfterTransition
-                    BackdropComponent={Backdrop}
-                    BackdropProps={{
-                        timeout: 500,
-                    }}
-                >
-                    <Fade in={open}>
-                        <div className={classes.paper}>
-                            <h2 id="transition-modal-title">Transition modal</h2>
-                            <UploadImage imageUploaded={imageUploaded} />
-                        </div>
-                    </Fade>
-                </Modal>
-            </div>
-        );
-    }
+
     return (
         <div>
-            <ToastContainer autoClose={2000} />
             <Container className={classes.root} maxWidth="md">
                 <form onSubmit={handleSubmit}>
                     <Grid container>
@@ -283,20 +239,7 @@ const AddProduct = (props) => {
                         <Grid item xs={12} md={4} lg={4} style={{ marginTop: '20px' }}>
                             {tagRender()}
                         </Grid>
-                        <Grid item xs={12} md={4} lg={4} style={{ marginTop: '20px' }}>
-                            <Button
-                                type="button"
-                                color="secondary"
-                                variant="contained"
-                                endIcon={<ImageIcon />}
-                                onClick={handleOpen}
-                                style={{ marginTop: '20px' }}
-                            >
-                                Add Image
-                            </Button>
-                        </Grid>
                     </Grid>
-                    {imageModal()}
                     <Button
                         type="submit"
                         color="primary"
@@ -312,5 +255,5 @@ const AddProduct = (props) => {
     )
 }
 
-export default AddProduct;
+export default EditProduct;
 

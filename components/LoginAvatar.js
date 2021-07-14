@@ -65,7 +65,9 @@ const LoginAvatar = () => {
                 onClose={handleClose}
             >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <Link href={`/product/addproduct`} passHref>
+                    <MenuItem onClick={handleClose}>Add Product</MenuItem>
+                </Link>
                 <Link href={`/profile/addedproducts`} passHref>
                     <MenuItem onClick={handleClose}>Added Products</MenuItem>
                 </Link>
