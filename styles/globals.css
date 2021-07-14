@@ -17,3 +17,23 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background:#EEE;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #e65100;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #e65100;
+}

@@ -6,6 +6,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
+import { useRouter } from 'next/dist/client/router';
+import { mdiConsoleNetworkOutline } from '@mdi/js';
 
 const BootstrapInput = withStyles((theme) => ({
     root: {
@@ -54,8 +56,25 @@ const useStyles = makeStyles((theme) => ({
 export default function Selector() {
     const classes = useStyles();
     const [age, setAge] = React.useState('');
+    const router = useRouter();
     const handleChange = (event) => {
         setAge(event.target.value);
+        console.log(event.target.value)
+        var value;
+        switch (event.target.value) {
+            case '1': value = 'keychain'
+                break;
+            case '2': value = 'coaster'
+                break;
+            case '3': value = 'character'
+                break;
+            case '4': value = 'accesory'
+                break;
+            case '5': value = 'bracelet'
+                break;
+        }
+        console.log(value)
+        router.push(`productlibrary?select=${value}`)
     };
     return (
         <div>
@@ -67,10 +86,12 @@ export default function Selector() {
                     onChange={handleChange}
                     input={<BootstrapInput />}
                 >
-                    <option aria-label="None" value="" />
-                    <option value={10}>Ten</option>
-                    <option value={20}>Twenty</option>
-                    <option value={30}>Thirty</option>
+                    <option aria-label="None" value="0">CATEGORY</option>
+                    <option value={1}>keychain</option>
+                    <option value={2}>coaster</option>
+                    <option value={3}>character</option>
+                    <option value={4}>accesory</option>
+                    <option value={5}>bracelet</option>
                 </NativeSelect>
             </FormControl>
         </div>

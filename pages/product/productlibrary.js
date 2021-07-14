@@ -28,9 +28,21 @@ const useStyles = makeStyles({
     },
 });
 
-export default function productLibrary({ pro_data, all_data, term }) {
+export default function productLibrary({ pro_data, all_data, term, all_select_data }) {
     const classes = useStyles();
     console.log(pro_data, all_data, term)
+    var renderData;
+
+    if (pro_data.length == 0 && all_select_data.length == 0) {
+        renderData = pro_data
+    }
+    if (pro_data.length == 0 && all_select_data.length != 0) {
+        renderData = all_select_data
+    }
+    if (pro_data.length != 0 && all_select_data.length == 0) {
+        renderData = pro_data;
+    }
+
     return (
         <div className={classes.root}>
             <Layout>
@@ -48,15 +60,18 @@ export default function productLibrary({ pro_data, all_data, term }) {
                     </Grid>
                 </Grid>
                 <Grid container>
-                    {pro_data.length === 0 || term === 'all' ? <CardList products={all_data} /> : <CardList products={pro_data} />}
+                    {renderData.length === 0 ? <CardList products={all_data} /> : <CardList products={renderData} />}
+                    {/* {pro_data.length === 0 || term === 'all' ? <CardList products={all_data} /> : <CardList products={pro_data} />} */}
+                    {/* {selectorData.length === 0 || term === 'all' ? <CardList products={all_data} /> : <CardList products={selectorData} />} */}
                 </Grid>
             </Layout>
         </div>
     )
 }
 
-export async function getServerSideProps({ query: { term } }) {
+export async function getServerSideProps({ query: { term = 'all', select } }) {
     console.log('term:', term)
+    console.log('select:', select)
     const query = qs.stringify({
         _where: {
             _or: [
@@ -65,14 +80,22 @@ export async function getServerSideProps({ query: { term } }) {
             ]
         }
     })
+
+    const resData = await fetch(`${API_URL}/product-lists?tags_contains=${select}`)
+    const selectorData = await resData.json();
     const res = await fetch(`${API_URL}/product-lists?${query}`)
     const data = await res.json();
     const resAll = await fetch(`${API_URL}/product-lists`)
-    const dataAll = await resAll.json();
+    var dataAll = await resAll.json();
+    console.log('selectorData', selectorData)
+    console.log('data', data)
+    if (select !== undefined && select !== '')
+        dataAll = []
     return {
         props: {
             pro_data: data,
             all_data: dataAll,
+            all_select_data: selectorData,
             term: term,
             revalidate: 1
         },

@@ -2,7 +2,7 @@ import React from 'react'
 import ProductCard from './ProductCard';
 
 export default function CardList(props) {
-    console.log(props)
+    // console.log(props)
     const render = () => {
         return (props.products.map(el => {
             return (
@@ -13,7 +13,7 @@ export default function CardList(props) {
     }
     return (
         <React.Fragment>
-            {props.products.length === 0 ? 'Loading' : render()}
+            {props.products.length === 0 ? 'Nothing To Show' : render()}
             {/* {<ProductCard data={props.products} />} */}
         </React.Fragment>
     )

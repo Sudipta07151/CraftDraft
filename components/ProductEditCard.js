@@ -94,6 +94,25 @@ export default function ProductEditCard({ data }) {
         setOpen(false);
     };
 
+    const router = useRouter();
+    const handleDelete = async () => {
+        console.log(productData.id);
+
+        if (confirm('ARE YOU SURE')) {
+            const res = await fetch(`${API_URL}/product-lists/${productData.id}`, {
+                method: 'DELETE'
+            })
+            const data = await res.json();
+            if (!res.ok) {
+                toast.error("DELETE REQUEST FAILED")
+            }
+            else {
+                router.push('/')
+                toast.success("DELETED SUCCESSFULLY")
+            }
+
+        }
+    }
     const imageModal = () => {
         const router = useRouter();
         const path = router.pathname;
@@ -121,6 +140,7 @@ export default function ProductEditCard({ data }) {
                 toast.error("UPLOAD FAILED")
             }
         }
+
         return (
             <div>
                 <Modal
@@ -189,7 +209,7 @@ export default function ProductEditCard({ data }) {
                                 </Button>
                             </Grid>
                             <Grid item xs={4}>
-                                <Link href={`/product/editproduct`} passHref>
+                                <Link href={`/ product / editproduct`} passHref>
                                     <Button
                                         type="button"
                                         color="secondary"
@@ -209,7 +229,7 @@ export default function ProductEditCard({ data }) {
                                     variant="contained"
                                     endIcon={<DeleteIcon />}
                                     className={classes.button}
-                                    // onClick={handleOpen}
+                                    onClick={handleDelete}
                                     style={{ marginTop: '20px', backgroundColor: '#d32f2f', color: 'white' }}
                                 >
                                     DELETE ITEM
