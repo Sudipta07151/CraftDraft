@@ -64,9 +64,8 @@ const Navbar = () => {
                             <LoyaltyIcon />
                         </Badge>
                     </IconButton>
-                    {/* <LoginBtn />
-                     */}
-                    <LoginAvatar />
+                    <LoginBtn />
+                    {/* <LoginAvatar /> */}
                 </Toolbar>
             </AppBar>
         </div>

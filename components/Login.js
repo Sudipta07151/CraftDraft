@@ -13,8 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 
 function Copyright() {
@@ -51,20 +50,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignUp() {
+export default function Login() {
     const classes = useStyles();
-    const [fname, setFname] = useState('');
-    const [lname, setLname] = useState('');
     const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
-    const [cnfpassword, setCnfPassword] = useState('');
-    const handleFname = (e) => {
-        setFname(e.target.value);
-    }
-    const handleLname = (e) => {
-        setLname(e.target.value);
-    }
+    const [phone, setPhone] = useState('');
+
     const handleEmail = (e) => {
         setEmail(e.target.value);
     }
@@ -74,84 +65,43 @@ export default function SignUp() {
     const handlePassowrd = (e) => {
         setPassword(e.target.value);
     }
-    const handleCnfPassowrd = (e) => {
-        setCnfPassword(e.target.value);
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (password !== cnfpassword) {
-            toast.error("Confirm Password did not match");
-            return
-        }
         const value = {
-            fname: fname,
-            lname: lname,
-            password: password,
+            email: email,
             password: password,
             phone: phone,
         };
         console.log(value);
-        setFname('');
-        setLname('');
         setPhone('');
         setPassword('');
         setEmail('');
-        setCnfPassword('');
-
     }
     return (
         <Container component="main" maxWidth="xs">
             <Paper elevation={3}>
                 <CssBaseline />
                 <div className={classes.paper}>
-                    <ToastContainer autoClose={1000} />
                     <Avatar className={classes.avatar} style={{ backgroundColor: 'orange' }}>
-                        <LockOutlinedIcon color='primary' />
+                        <VpnKeyIcon color='primary' />
                     </Avatar>
                     <Typography component="h1" variant="h5">
-                        Sign up
+                        Login
                     </Typography>
                     <form className={classes.form} onSubmit={handleSubmit}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    autoComplete="fname"
-                                    name="firstName"
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    onChange={handleFname}
-                                    value={fname}
-                                    id="firstName"
-                                    label="First Name"
-                                    autoFocus
-                                />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    onChange={handleLname}
-                                    value={lname}
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
-                                    autoComplete="lname"
-                                />
-                            </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
                                     required
                                     fullWidth
                                     id="email"
-                                    onChange={handleEmail}
                                     type="email"
-                                    value={email}
                                     label="Email Address"
+                                    onChange={handleEmail}
                                     name="email"
+                                    value={email}
                                     autoComplete="email"
                                 />
                             </Grid>
@@ -160,9 +110,9 @@ export default function SignUp() {
                                     variant="outlined"
                                     required
                                     fullWidth
+                                    onChange={handlePhone}
                                     name="phone"
                                     value={phone}
-                                    onChange={handlePhone}
                                     label="phone"
                                     id="phone"
                                 />
@@ -173,25 +123,12 @@ export default function SignUp() {
                                     required
                                     fullWidth
                                     name="password"
-                                    onChange={handlePassowrd}
                                     label="Password"
                                     type="password"
                                     value={password}
+                                    onChange={handlePassowrd}
                                     id="password"
                                     autoComplete="current-password"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    name="cnfpassword"
-                                    onChange={handleCnfPassowrd}
-                                    label="Confirm Password"
-                                    value={cnfpassword}
-                                    type="password"
-                                    id="cnfpassword"
                                 />
                             </Grid>
                         </Grid>
@@ -203,12 +140,12 @@ export default function SignUp() {
                             className={classes.submit}
                             type="submit"
                         >
-                            Sign Up
+                            Login
                         </Button>
                         <Grid container justify="flex-end">
                             <Grid item>
-                                <Link href="/login">
-                                    Already have an account? Sign in
+                                <Link href="/signingUp">
+                                    Dont have an account? SignUp
                                 </Link>
                             </Grid>
                         </Grid>

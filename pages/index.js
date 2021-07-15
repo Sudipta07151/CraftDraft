@@ -39,6 +39,7 @@ const home = ({ pro_data, page }) => {
                                         marginBottom: '40px',
                                         marginRight: '10px'
                                     }}
+                                    disabled={page === 1 ? true : false}
                                 >
                                     PREV
                                 </Button>
@@ -50,6 +51,7 @@ const home = ({ pro_data, page }) => {
                                     style={{
                                         marginBottom: '40px'
                                     }}
+                                    disabled={pro_data.length === 0 ? true : false}
                                 >
                                     NEXT
                                 </Button>
