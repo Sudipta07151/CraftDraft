@@ -51,7 +51,7 @@ const home = ({ pro_data, page }) => {
                                     style={{
                                         marginBottom: '40px'
                                     }}
-                                    disabled={pro_data.length === 0 ? true : false}
+                                    disabled={pro_data.length === 0 || pro_data.length !== 3 ? true : false}
                                 >
                                     NEXT
                                 </Button>

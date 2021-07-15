@@ -36,9 +36,9 @@ const useStyles = makeStyles({
 });
 
 export default function ProductCard({ data }) {
-    console.log(data)
+    // console.log(data)
     const classes = useStyles();
-    console.log(mdiCurrencyInr)
+    // console.log(mdiCurrencyInr)
     return (
         <React.Fragment >
             <Grid item xs={12} md={6} sm={12} lg={4}>

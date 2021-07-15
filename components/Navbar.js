@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { useContext } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
@@ -14,6 +15,9 @@ import Badge from '@material-ui/core/Badge';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import LoginBtn from './LoginBtn';
 import LoginAvatar from './LoginAvatar';
+import LogoutBtn from './LogoutBtn';
+
+import AuthContext from 'context/authContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,6 +38,7 @@ const theme = createMuiTheme({
 
 const Navbar = () => {
     const classes = useStyles();
+    const { user, Logout } = useContext(AuthContext)
 
     return (
         <div className={classes.root}>
@@ -64,8 +69,8 @@ const Navbar = () => {
                             <LoyaltyIcon />
                         </Badge>
                     </IconButton>
-                    <LoginBtn />
-                    {/* <LoginAvatar /> */}
+                    {!user ? <LoginBtn /> : <LoginAvatar />}
+                    {user ? <LogoutBtn handleLogout={Logout()} /> : null}
                 </Toolbar>
             </AppBar>
         </div>

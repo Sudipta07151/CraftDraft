@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,6 +16,7 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
+import AuthContext from 'context/authContext';
 
 function Copyright() {
     return (
@@ -51,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+
+    const { Login } = useContext(AuthContext)
+
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -74,6 +79,7 @@ export default function Login() {
             phone: phone,
         };
         console.log(value);
+        Login({ email, password })
         setPhone('');
         setPassword('');
         setEmail('');

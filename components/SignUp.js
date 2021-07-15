@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,6 +16,7 @@ import Paper from '@material-ui/core/Paper';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import AuthContext from 'context/authContext';
 
 function Copyright() {
     return (
@@ -53,6 +54,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
     const classes = useStyles();
+
+    const { register } = useContext(AuthContext)
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
     const [email, setEmail] = useState('');
@@ -84,14 +87,16 @@ export default function SignUp() {
             toast.error("Confirm Password did not match");
             return
         }
-        const value = {
-            fname: fname,
-            lname: lname,
+        const user = {
+            // fname: fname,
+            // lname: lname,
+            name: fname + lname,
             password: password,
             password: password,
             phone: phone,
         };
-        console.log(value);
+        console.log(user);
+        register(user)
         setFname('');
         setLname('');
         setPhone('');

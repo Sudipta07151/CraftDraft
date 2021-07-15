@@ -13,7 +13,6 @@ import { API_URL } from 'config';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/dist/client/router';
-import { Router } from '@material-ui/icons';
 import ImageIcon from '@material-ui/icons/Image';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
