@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -17,6 +17,9 @@ import Paper from '@material-ui/core/Paper';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 import AuthContext from 'context/authContext';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Copyright() {
     return (
@@ -54,7 +57,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
 
-    const { Login } = useContext(AuthContext)
+    const { Login, error } = useContext(AuthContext);
+
+    useEffect(() => error && toast.error(error));
 
     const classes = useStyles();
     const [email, setEmail] = useState('');
@@ -86,6 +91,7 @@ export default function Login() {
     }
     return (
         <Container component="main" maxWidth="xs">
+            <ToastContainer autoClose={1000} />
             <Paper elevation={3}>
                 <CssBaseline />
                 <div className={classes.paper}>
