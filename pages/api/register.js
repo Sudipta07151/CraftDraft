@@ -3,15 +3,16 @@ import { API_URL } from "config";
 
 export default async (req, res) => {
     if (req.method === 'POST') {
-        const { identifier, password } = req.body;
-
-        const strapiRes = await fetch(`${API_URL}/auth/local`, {
+        const { username, email, password } = req.body;
+        console.log('req body: ', req.body)
+        const strapiRes = await fetch(`${API_URL}/auth/local/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'Application/json'
             },
             body: JSON.stringify({
-                identifier,
+                username,
+                email,
                 password
             })
         })
@@ -29,7 +30,7 @@ export default async (req, res) => {
             res.status(200).json({ user: data.user });
         }
         else {
-            res.status(400).json({ message: 'BAD LOGIN' })
+            res.status(400).json({ message: 'BAD SIGNUP' })
         }
     }
     else {

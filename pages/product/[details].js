@@ -3,7 +3,8 @@ import Layout from '@/components/Layout';
 import SingleProduct from '@/components/SingleProduct'
 import AddReview from '../../components/AddReview';
 import ReviewList from '@/components/ReviewList';
-import { API_URL } from '../../config/index'
+import { API_URL } from '../../config/index';
+
 
 export default function details({ product }) {
     console.log(product)

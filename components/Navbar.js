@@ -70,7 +70,7 @@ const Navbar = () => {
                         </Badge>
                     </IconButton>
                     {!user ? <LoginBtn /> : <LoginAvatar />}
-                    {user ? <LogoutBtn handleLogout={Logout()} /> : null}
+                    {user ? <LogoutBtn handleLogout={Logout} /> : null}
                 </Toolbar>
             </AppBar>
         </div>

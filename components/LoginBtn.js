@@ -5,7 +5,7 @@ import Link from 'next/link';
 const LoginBtn = () => {
     return (
         <React.Fragment>
-            <Link href={`/signingUp`} passHref>
+            <Link href={`/login`} passHref>
                 <Button color="inherit">Login</Button>
             </Link>
             <Button color="inherit">Admin</Button>

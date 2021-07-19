@@ -16,6 +16,8 @@ import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
+import Layout from '../components/Layout';
+
 import AuthContext from 'context/authContext';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -40,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        marginTop: '100px'
     },
     avatar: {
         margin: theme.spacing(1),
@@ -94,80 +97,82 @@ export default function Login() {
             <ToastContainer autoClose={1000} />
             <Paper elevation={3}>
                 <CssBaseline />
-                <div className={classes.paper}>
-                    <Avatar className={classes.avatar} style={{ backgroundColor: 'orange' }}>
-                        <VpnKeyIcon color='primary' />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Login
-                    </Typography>
-                    <form className={classes.form} onSubmit={handleSubmit}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    type="email"
-                                    label="Email Address"
-                                    onChange={handleEmail}
-                                    name="email"
-                                    value={email}
-                                    autoComplete="email"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    onChange={handlePhone}
-                                    name="phone"
-                                    value={phone}
-                                    label="phone"
-                                    id="phone"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    variant="outlined"
-                                    required
-                                    fullWidth
-                                    name="password"
-                                    label="Password"
-                                    type="password"
-                                    value={password}
-                                    onChange={handlePassowrd}
-                                    id="password"
-                                    autoComplete="current-password"
-                                />
-                            </Grid>
-                        </Grid>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            type="submit"
-                        >
+                <Layout>
+                    <div className={classes.paper}>
+                        <Avatar className={classes.avatar} style={{ backgroundColor: 'orange' }}>
+                            <VpnKeyIcon color='primary' />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
                             Login
-                        </Button>
-                        <Grid container justify="flex-end">
+                        </Typography>
+                        <form className={classes.form} onSubmit={handleSubmit}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        type="email"
+                                        label="Email Address"
+                                        onChange={handleEmail}
+                                        name="email"
+                                        value={email}
+                                        autoComplete="email"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        onChange={handlePhone}
+                                        name="phone"
+                                        value={phone}
+                                        label="phone"
+                                        id="phone"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        value={password}
+                                        onChange={handlePassowrd}
+                                        id="password"
+                                        autoComplete="current-password"
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                type="submit"
+                            >
+                                Login
+                            </Button>
+                            <Grid container justify="flex-end">
+                                <Grid item>
+                                    <Link href="/signingUp">
+                                        Dont have an account? SignUp
+                                    </Link>
+                                </Grid>
+                            </Grid>
                             <Grid item>
-                                <Link href="/signingUp">
-                                    Dont have an account? SignUp
+                                <Link href="/">
+                                    Go Back Home? Sign in
                                 </Link>
                             </Grid>
-                        </Grid>
-                        <Grid item>
-                            <Link href="/">
-                                Go Back Home? Sign in
-                            </Link>
-                        </Grid>
-                    </form>
-                </div>
+                        </form>
+                    </div>
+                </Layout>
                 <Box mt={5}>
                     <Copyright />
                 </Box>
