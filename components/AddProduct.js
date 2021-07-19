@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
@@ -18,6 +18,10 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import UploadImage from './UploadImage';
+
+
+
+import AuthContext from 'context/authContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,6 +73,8 @@ const AddProduct = (props) => {
 
     const [open, setOpen] = React.useState(false);
 
+    const { user } = useContext(AuthContext)
+
     const handleOpen = () => {
         setOpen(true);
     };
@@ -119,6 +125,7 @@ const AddProduct = (props) => {
                 tags: tagItem,
                 discount: discount,
                 price: price,
+                user: user
             };
             console.log(values);
             const res = await fetch(`${API_URL}/product-lists`, {

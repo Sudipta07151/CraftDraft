@@ -60,6 +60,7 @@ export default function SignUp() {
     const classes = useStyles();
 
     const { register, error } = useContext(AuthContext)
+
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
     const [email, setEmail] = useState('');

@@ -39,7 +39,7 @@ const theme = createMuiTheme({
 const Navbar = () => {
     const classes = useStyles();
     const { user, Logout } = useContext(AuthContext)
-
+    console.log(user)
     return (
         <div className={classes.root}>
             <AppBar position="fixed"

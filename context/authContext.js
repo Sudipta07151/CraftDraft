@@ -9,10 +9,8 @@ export const AuthProvider = ({ children }) => {
     const [error, setError] = useState(null)
     const router = useRouter();
 
-    useEffect(() => {
-        checkedUserLoggedIn
-    }, [])
-
+    useEffect(() => checkedUserLoggedIn(), [])
+    console.log('AUTH CONTEXT: ', user)
     //Register
     const register = async (user) => {
         console.log(user)
@@ -69,12 +67,13 @@ export const AuthProvider = ({ children }) => {
         })
         if (res.ok) {
             setUser(null);
+            console.log('set user logged out')
             router.push('/');
         }
     }
 
     //Check if user is logged in
-    const checkedUserLoggedIn = async (user) => {
+    const checkedUserLoggedIn = async () => {
         const res = await fetch(`${NEXT_URL}/api/user`)
         const data = await res.json()
 
