@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import Link from "next/link";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,13 +10,11 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Chip from "@material-ui/core/Chip";
-import { mdiChartLineStacked, mdiCurrencyInr } from "@mdi/js";
+import { mdiCurrencyInr } from "@mdi/js";
 import SvgIcon from "@material-ui/core/SvgIcon";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import Grid from "@material-ui/core/Grid";
 import noImage from "../public/no_image.jpg";
-
-import AuthContext from "context/authContext";
 
 const useStyles = makeStyles({
   root: {
@@ -37,32 +35,10 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ProductCard({ data }) {
+export default function WishListCard({ data }) {
   // console.log(data)
   const classes = useStyles();
   // console.log(mdiCurrencyInr)
-
-  const { SetWishListFunction } = useContext(AuthContext);
-  const [wishList, setWishList] = React.useState([]);
-  React.useEffect(() => {
-    if (localStorage.getItem("wishlist_key") == null)
-      localStorage.setItem("wishlist_key", "[]");
-    else {
-      var old_list = JSON.parse(localStorage.getItem("wishlist_key"));
-      SetWishListFunction(old_list);
-    }
-  }, [wishList]);
-
-  const handleWishList = (data) => {
-    console.log("handle clicked", data);
-    var old_list = JSON.parse(localStorage.getItem("wishlist_key"));
-    console.log("old list", old_list);
-    old_list.push(data);
-    localStorage.setItem("wishlist_key", JSON.stringify(old_list));
-    setWishList(old_list);
-    SetWishListFunction(old_list);
-  };
-
   return (
     <React.Fragment>
       <Grid item xs={12} md={6} sm={12} lg={4}>
@@ -73,7 +49,7 @@ export default function ProductCard({ data }) {
                 className={classes.media}
                 image={
                   data.image
-                    ? data.image.formats.thumbnail.url
+                    ? data.image.formats.small.url
                     : "https://images.unsplash.com/photo-1602984338060-bfddce132ebc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                 }
                 title="data.title"
@@ -120,11 +96,10 @@ export default function ProductCard({ data }) {
                         /> */}
             <Chip
               icon={<FavoriteBorderIcon />}
-              label="WISHLIST"
+              label="REMOVE"
               variant="outlined"
               clickable={true}
               color="primary"
-              onClick={() => handleWishList(data)}
             />
             <Button variant="outlined" color="primary">
               ADD TO CART
