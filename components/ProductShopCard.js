@@ -88,9 +88,7 @@ export default function ProductShopCard({ data }) {
                     variant="square"
                     className={matches ? classes.square : classes.square2}
                     src={data.image.url}
-                  >
-                    N
-                  </Avatar>
+                  ></Avatar>
                 </TableCell>
                 <TableCell>{data.price}</TableCell>
                 <TableCell>{data.discount}</TableCell>

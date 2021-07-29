@@ -5,6 +5,9 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
+import { deepOrange, green } from "@material-ui/core/colors";
+import Avatar from "@material-ui/core/Avatar";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const products = [
   { name: "Product 1", desc: "A nice thing", price: "$9.99" },
@@ -37,27 +40,54 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginTop: theme.spacing(2),
   },
+  square: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+    width: theme.spacing(20),
+    height: theme.spacing(15),
+  },
+  square2: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+    width: theme.spacing(10),
+    height: theme.spacing(10),
+  },
 }));
 
-export default function Review() {
+export default function Review({ data }) {
   const classes = useStyles();
-
+  console.log("REVIEW", data);
+  const matches = useMediaQuery("(min-width:600px)");
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
+        {/* {products.map((product) => (
           <ListItem className={classes.listItem} key={product.name}>
             <ListItemText primary={product.name} secondary={product.desc} />
             <Typography variant="body2">{product.price}</Typography>
           </ListItem>
-        ))}
+        ))} */}
+        <ListItem className={classes.listItem} key={data.id}>
+          <ListItemText
+            primary={data.title}
+            secondary={`DISCOUNT ${data.discount}%`}
+          />
+          <ListItemText>
+            <Avatar
+              variant="square"
+              className={matches ? classes.square : classes.square2}
+              src={data.image.url}
+            ></Avatar>
+          </ListItemText>
+          <Typography variant="body2">{data.price}</Typography>
+        </ListItem>
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+            {Math.floor(data.price * (1 - data.discount / 100))}
           </Typography>
         </ListItem>
       </List>

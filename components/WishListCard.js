@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     minWidth: 350,
     maxWidth: 700,
     padding: "20px",
-    border: "solid 3px #ffb300",
+    border: "solid 4px #f50057",
     margin: "20px",
     maxHeight: "600px",
     minHeight: "450px",
@@ -69,7 +69,7 @@ export default function WishListCard({ data }) {
                   top: -20,
                   left: -15,
                   backgroundColor: "white",
-                  border: "solid 1px #ffb300",
+                  border: "solid 2px #f50057",
                   fontSize: "20px",
                 }}
               />

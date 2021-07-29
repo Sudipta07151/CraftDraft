@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -13,6 +13,11 @@ import Typography from "@material-ui/core/Typography";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
+import AuthContext from "context/authContext";
+import { API_URL } from "config";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/dist/client/router";
 
 function Copyright() {
   return (
@@ -62,24 +67,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
+// const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["Shipping address", "Review your order"];
 
 export default function Checkout() {
+  console.log(userShopData);
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return <AddressForm />;
+      // case 1:
+      //   return <PaymentForm />;
+      case 1:
+        return <Review data={addToCart} />;
+      default:
+        throw new Error("Unknown step");
+    }
+  }
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const router = useRouter();
+  const { GetCartItemFunction, addToCart, userShopData } =
+    useContext(AuthContext);
+  console.log(addToCart);
+  React.useEffect(() => {
+    GetCartItemFunction();
+  }, []);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -89,9 +102,31 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  const submitOrder = async () => {
+    const res = await fetch(`${API_URL}/orders`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userShopData),
+    });
+    if (!res.ok) {
+      toast.error("Something went wrong");
+    } else {
+      const data = await res.json();
+      toast.success("ADDED ORDER DATA");
+      setTimeout(() => {
+        router.push("/");
+      }, 2000);
+    }
+    // console.log(userShopData);
+    // console.log("SUBMITTED");
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
+      <ToastContainer />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -128,10 +163,12 @@ export default function Checkout() {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleNext}
                     className={classes.button}
+                    onClick={
+                      activeStep === steps.length - 1 ? submitOrder : handleNext
+                    }
                   >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    {activeStep === steps.length - 1 ? "Place Order" : "Next"}
                   </Button>
                 </div>
               </React.Fragment>

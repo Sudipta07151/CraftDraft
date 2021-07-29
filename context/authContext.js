@@ -10,10 +10,12 @@ export const AuthProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [wishListData, setWishListData] = useState([]);
   const [addToCart, setAddToCart] = useState(null);
+  const [userShopData, setUserShopData] = useState(null);
   const router = useRouter();
 
   useEffect(() => checkedUserLoggedIn(), []);
   console.log("AUTH CONTEXT: ", user);
+
   //Register
   const register = async (user) => {
     console.log(user);
@@ -103,6 +105,10 @@ export const AuthProvider = ({ children }) => {
 
     setAddToCart(JSON.parse(product));
   };
+
+  const SetUserShopDataFunction = (user_data) => {
+    setUserShopData(user_data);
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -116,6 +122,8 @@ export const AuthProvider = ({ children }) => {
         SetAddToCartFunction,
         GetCartItemFunction,
         addToCart,
+        SetUserShopDataFunction,
+        userShopData,
       }}
     >
       {children}
