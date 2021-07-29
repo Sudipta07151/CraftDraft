@@ -23,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  buttonBadge: {
+    "& > *": {
+      margin: theme.spacing(2),
+    },
+  },
   title: {
     flexGrow: 1,
   },
@@ -37,7 +42,7 @@ const theme = createMuiTheme({
 
 const Navbar = () => {
   const classes = useStyles();
-  const { user, Logout, wishListData } = useContext(AuthContext);
+  const { user, Logout, wishListData, addToCart } = useContext(AuthContext);
   console.log(wishListData);
   return (
     <div className={classes.root}>
@@ -60,9 +65,16 @@ const Navbar = () => {
             </Link>
           </IconButton>
           <IconButton aria-label="show 17 new notifications" color="inherit">
-            <Badge badgeContent={0} color="secondary">
-              <ShoppingCartIcon />
-            </Badge>
+            <Link href={`/profile/addtocart`} passHref>
+              <Badge
+                color="secondary"
+                className="buttonBadge"
+                badgeContent=" "
+                variant={addToCart !== null ? "dot" : "standard"}
+              >
+                <ShoppingCartIcon />
+              </Badge>
+            </Link>
           </IconButton>
           <IconButton aria-label="show 17 new notifications" color="inherit">
             <Link href={`/profile/wishlist`} passHref>

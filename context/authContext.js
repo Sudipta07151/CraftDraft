@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [wishListData, setWishListData] = useState([]);
+  const [addToCart, setAddToCart] = useState(null);
   const router = useRouter();
 
   useEffect(() => checkedUserLoggedIn(), []);
@@ -88,6 +89,20 @@ export const AuthProvider = ({ children }) => {
   const SetWishListFunction = (data) => {
     setWishListData(data);
   };
+
+  const SetAddToCartFunction = (data) => {
+    localStorage.setItem("cart_key", JSON.stringify(data));
+    setAddToCart(data);
+  };
+
+  const GetCartItemFunction = () => {
+    var product = localStorage.getItem("cart_key");
+    if (product == null) {
+      setAddToCart(null);
+    }
+
+    setAddToCart(JSON.parse(product));
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -98,6 +113,9 @@ export const AuthProvider = ({ children }) => {
         Logout,
         wishListData,
         SetWishListFunction,
+        SetAddToCartFunction,
+        GetCartItemFunction,
+        addToCart,
       }}
     >
       {children}

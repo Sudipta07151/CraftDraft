@@ -42,7 +42,7 @@ export default function ProductCard({ data }) {
   const classes = useStyles();
   // console.log(mdiCurrencyInr)
 
-  const { SetWishListFunction } = useContext(AuthContext);
+  const { SetWishListFunction, SetAddToCartFunction } = useContext(AuthContext);
   const [wishList, setWishList] = React.useState([]);
   React.useEffect(() => {
     if (localStorage.getItem("wishlist_key") == null)
@@ -126,7 +126,11 @@ export default function ProductCard({ data }) {
               color="primary"
               onClick={() => handleWishList(data)}
             />
-            <Button variant="outlined" color="primary">
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => SetAddToCartFunction(data)}
+            >
               ADD TO CART
             </Button>
             <Link href={`/product/${data.key}`} passHref>
