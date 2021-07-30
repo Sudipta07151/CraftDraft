@@ -116,11 +116,17 @@ export default function Checkout() {
       toast.success("ADDED ORDER DATA");
       setActiveStep(activeStep + 1);
       SetAddToCartFunction(null);
+
+      //send data
+      fetch("/api/mailer", {
+        method: "POST",
+        body: JSON.stringify({ ...userShopData, ...addToCart }),
+      });
+
       setTimeout(() => {
         router.push("/");
       }, 5000);
     }
-    // console.log(userShopData);
     // console.log("SUBMITTED");
   };
 
