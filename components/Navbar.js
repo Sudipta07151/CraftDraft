@@ -69,8 +69,8 @@ const Navbar = () => {
               <Badge
                 color="secondary"
                 className="buttonBadge"
-                badgeContent=" "
-                variant={addToCart !== null ? "dot" : "standard"}
+                badgeContent={addToCart !== null ? " " : 0}
+                variant={addToCart !== null ? "dot" : ""}
               >
                 <ShoppingCartIcon />
               </Badge>

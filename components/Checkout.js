@@ -71,7 +71,6 @@ const useStyles = makeStyles((theme) => ({
 const steps = ["Shipping address", "Review your order"];
 
 export default function Checkout() {
-  console.log(userShopData);
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -87,12 +86,12 @@ export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const router = useRouter();
-  const { GetCartItemFunction, addToCart, userShopData } =
+  const { GetCartItemFunction, addToCart, userShopData, SetAddToCartFunction } =
     useContext(AuthContext);
   console.log(addToCart);
   React.useEffect(() => {
     GetCartItemFunction();
-  }, []);
+  }, [userShopData]);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -115,9 +114,11 @@ export default function Checkout() {
     } else {
       const data = await res.json();
       toast.success("ADDED ORDER DATA");
+      setActiveStep(activeStep + 1);
+      SetAddToCartFunction(null);
       setTimeout(() => {
         router.push("/");
-      }, 2000);
+      }, 5000);
     }
     // console.log(userShopData);
     // console.log("SUBMITTED");
@@ -126,7 +127,7 @@ export default function Checkout() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">

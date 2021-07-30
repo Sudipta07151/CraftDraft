@@ -102,7 +102,6 @@ export const AuthProvider = ({ children }) => {
     if (product == null) {
       setAddToCart(null);
     }
-
     setAddToCart(JSON.parse(product));
   };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
@@ -9,26 +9,28 @@ import { deepOrange, green } from "@material-ui/core/colors";
 import Avatar from "@material-ui/core/Avatar";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const products = [
-  { name: "Product 1", desc: "A nice thing", price: "$9.99" },
-  { name: "Product 2", desc: "Another thing", price: "$3.45" },
-  { name: "Product 3", desc: "Something else", price: "$6.51" },
-  { name: "Product 4", desc: "Best thing of all", price: "$14.11" },
-  { name: "Shipping", desc: "", price: "Free" },
-];
-const addresses = [
-  "1 Material-UI Drive",
-  "Reactville",
-  "Anytown",
-  "99999",
-  "USA",
-];
-const payments = [
-  { name: "Card type", detail: "Visa" },
-  { name: "Card holder", detail: "Mr John Smith" },
-  { name: "Card number", detail: "xxxx-xxxx-xxxx-1234" },
-  { name: "Expiry date", detail: "04/2024" },
-];
+import AuthContext from "context/authContext";
+
+// const products = [
+//   { name: "Product 1", desc: "A nice thing", price: "$9.99" },
+//   { name: "Product 2", desc: "Another thing", price: "$3.45" },
+//   { name: "Product 3", desc: "Something else", price: "$6.51" },
+//   { name: "Product 4", desc: "Best thing of all", price: "$14.11" },
+//   { name: "Shipping", desc: "", price: "Free" },
+// ];
+// const addresses = [
+//   "1 Material-UI Drive",
+//   "Reactville",
+//   "Anytown",
+//   "99999",
+//   "USA",
+// ];
+// const payments = [
+//   { name: "Card type", detail: "Visa" },
+//   { name: "Card holder", detail: "Mr John Smith" },
+//   { name: "Card number", detail: "xxxx-xxxx-xxxx-1234" },
+//   { name: "Expiry date", detail: "04/2024" },
+// ];
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -57,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Review({ data }) {
   const classes = useStyles();
   console.log("REVIEW", data);
+
+  const { userShopData } = useContext(AuthContext);
+  console.log("USER DATA:", userShopData);
+
   const matches = useMediaQuery("(min-width:600px)");
   return (
     <React.Fragment>
@@ -92,18 +98,23 @@ export default function Review({ data }) {
         </ListItem>
       </List>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <Typography variant="h6" gutterBottom className={classes.title}>
             Shipping
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
+          <Typography gutterBottom>
+            {userShopData.FirstName} {userShopData.LastName}
+          </Typography>
+          <Typography gutterBottom>Address: {userShopData.address}</Typography>
+          <Typography gutterBottom>PinCode: {userShopData.zipcode}</Typography>
+          <Typography gutterBottom>Email: {userShopData.email}</Typography>
+          <Typography gutterBottom>Phone: {userShopData.phone}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
             Payment details
           </Typography>
-          <Grid container>
+          {/* <Grid container>
             {payments.map((payment) => (
               <React.Fragment key={payment.name}>
                 <Grid item xs={6}>
@@ -114,6 +125,11 @@ export default function Review({ data }) {
                 </Grid>
               </React.Fragment>
             ))}
+          </Grid> */}
+          <Grid container>
+            <Grid item xs={6}>
+              <Typography gutterBottom>CASH ON DELIVERY</Typography>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
