@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function wishlist(props) {
+export default function Wishlist(props) {
   console.log(props);
   const [wishList, setWishList] = React.useState();
   React.useEffect(() => {});

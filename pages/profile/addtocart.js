@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import Link from "next/dist/client/link";
 import AuthContext from "context/authContext";
 
-export default function addtocart() {
+export default function Addtocart() {
   const { addToCart, GetCartItemFunction } = useContext(AuthContext);
   const [item, setItem] = React.useState(null);
   React.useEffect(() => {
