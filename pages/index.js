@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const home = ({ pro_data, page }) => {
+const Home = ({ pro_data, page }) => {
   const classes = useStyles();
   // console.log(pro_data);
   return (
@@ -95,4 +95,4 @@ export async function getServerSideProps({ query: { page = 1 } }) {
     },
   };
 }
-export default home;
+export default Home;
